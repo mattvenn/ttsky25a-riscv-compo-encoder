@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  title:        "Rotary Encoder Peripheral"      # Project title
+  author:       "Matt Venn"      # Your name
+  discord:      "mattvenn"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "Reads a rotary encoder and stores the result in a register"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     64000000  # Clock frequency in Hz (or 0 if not applicable)
 
@@ -17,7 +17,10 @@ project:
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "peripheral.v"
+    - "matt_encoder.v"
+    - "enc/debounce.v"
+    - "enc/encoder.v"
+    - "enc/strobe_gen.v"
     - "tt_wrapper.v"
     - "spi/falling_edge_detector.sv"
     - "spi/rising_edge_detector.sv"
@@ -30,8 +33,8 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
+  ui[0]: "enc0 a"
+  ui[1]: "enc0 b"
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""

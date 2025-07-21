@@ -26,7 +26,14 @@ module tqvp_matt_encoder(
     output [7:0]  data_out      // Data out from the peripheral, set this in accordance with the supplied address
 );
 
+    // assign the pins
+    wire enc0_a = ui_in[0];
+    wire enc0_b = ui_in[1];
+    wire reset = ! rst_n;
+    wire [7:0] enc0;
+
     // Example: Implement an 8-bit read/write register at address 0
+    /*
     reg [7:0] example_data;
     always @(posedge clk) begin
         if (!rst_n) begin
@@ -37,15 +44,22 @@ module tqvp_matt_encoder(
             end
         end
     end
+    */
 
     // All output pins must be assigned. If not used, assign to 0.
-    assign uo_out  = ui_in + example_data;  // Example: uo_out is the sum of ui_in and the example register
+    assign uo_out  = 0;
 
-    // Address 0 reads the example data register.  
-    // Address 1 reads ui_in
+    // Address 0 reads encoder 0
     // All other addresses read 0.
-    assign data_out = (address == 4'h0) ? example_data :
-                      (address == 4'h1) ? ui_in :
-                      8'h0;    
-
+    assign data_out = (address == 4'h0) ? enc0 :
+                      8'h0;  
+	
+    wire enc0_a_db, enc0_b_db;
+    wire deb_strobe;
+    // TODO make the strobe frequency adjustable from the RISC-V CPU
+    strobe_gen #(.WIDTH(14))  deb_strobe_gen(.clk(clk), .out(deb_strobe));
+    debounce #(.HIST_LEN(8)) debounce0_a(.clk(clk), .strobe(deb_strobe), .reset(reset), .button(enc0_a), .debounced(enc0_a_db));
+    debounce #(.HIST_LEN(8)) debounce0_b(.clk(clk), .strobe(deb_strobe), .reset(reset), .button(enc0_b), .debounced(enc0_b_db));
+    encoder #(.WIDTH(8)) encoder0(.clk(clk), .reset(reset), .a(enc0_a_db), .b(enc0_b_db), .value(enc0));
 endmodule
+
