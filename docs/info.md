@@ -9,7 +9,11 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## What it does
 
-Explain what your peripheral does and how it works
+Reads a rotary (incremental) encoder: https://en.wikipedia.org/wiki/Incremental_encoder
+
+The a and b signals are first debounced.
+
+The encoder counts from 0 to 255.
 
 ## Register map
 
@@ -17,12 +21,15 @@ Document the registers that are used to interact with your peripheral
 
 | Address | Name  | Access | Description                                                         |
 |---------|-------|--------|---------------------------------------------------------------------|
-| 0x00    | DATA  | R/W    | A byte of data                                                      |
+| 0x00    | DATA  | R      | Value of Encoder 0                                                  |
 
 ## How to test
 
-Explain how to use your project
+Connect an incremental encoder to the input port (see pin mapping).
+
+Use the test firmware to read the value of the encoder and print it out.
+
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Rotary incremental encoder.
