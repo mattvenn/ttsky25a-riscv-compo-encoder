@@ -46,9 +46,9 @@ module tqvp_matt_encoder(
     reg [7:0] debounce_cmp;
     always @(posedge clk) begin
         if (!rst_n) begin
-            debounce_cmp <= 64;
+            debounce_cmp <= 128;
         end else begin
-            if (address == 4'h0) begin
+            if (address == 4'h4) begin
                 if (data_write) debounce_cmp <= data_in[7:0];
             end
         end
@@ -63,6 +63,7 @@ module tqvp_matt_encoder(
 	              (address == 4'h1) ? enc1 :
 	              (address == 4'h2) ? enc2 :
 	              (address == 4'h3) ? enc3 :
+	              (address == 4'h4) ? debounce_cmp :
                       8'h0;  
     // strobe gen
     strobe_gen #(.WIDTH(16))  deb_strobe_gen(.clk(clk), .cmp(debounce_cmp), .reset(reset), .out(deb_strobe));

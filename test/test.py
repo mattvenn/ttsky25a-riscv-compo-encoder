@@ -37,9 +37,13 @@ async def test_project(dut):
 
     # debounce strobe is 1 clock high every (debounce_cmp << 6) cycles.
     # default is 128, which is 1 strobe every 8192 cycles, which at 64MHz results in a 7kHz sampling rate on the encoders
+    dut._log.info("check default debounce frequency")
+    assert await tqv.read_reg(4) == 128
+
     # takes too long for test, so set to 1, or once sample per 64 cycles
     dut._log.info("update debounce frequency")
-    await tqv.write_reg(0, 1)
+    await tqv.write_reg(4, 1)
+    assert await tqv.read_reg(4) == 1
 
     # check encoder is at 0
     dut._log.info("Check all encoders are 0 at reset")

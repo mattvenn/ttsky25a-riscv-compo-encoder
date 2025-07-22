@@ -22,14 +22,17 @@ Document the registers that are used to interact with your peripheral
 | Address | Name  | Access | Description                                                         |
 |---------|-------|--------|---------------------------------------------------------------------|
 | 0x00    | DATA  | R      | Value of Encoder 0                                                  |
+| 0x01    | DATA  | R      | Value of Encoder 1                                                  |
+| 0x02    | DATA  | R      | Value of Encoder 2                                                  |
+| 0x03    | DATA  | R      | Value of Encoder 3                                                  |
+| 0x04    | DATA  | R/W    | Debounce frequency. Will be left shifted by 4                       |
 
 ## How to test
 
-Connect an incremental encoder to the input port (see pin mapping).
+Connect an incremental encoder to the input ports (see pin mapping).
 
 Use the test firmware to read the value of the encoder and print it out.
 
-
 ## External hardware
 
-Rotary incremental encoder.
+Rotary incremental encoders.

@@ -35,12 +35,12 @@ pinout:
   # Inputs
   ui[0]: "enc0 a"
   ui[1]: "enc0 b"
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[2]: "enc1 a"
+  ui[3]: "enc1 b"
+  ui[4]: "enc2 a"
+  ui[5]: "enc2 b"
+  ui[6]: "enc3 a"
+  ui[7]: "enc3 b"
 
   # Outputs
   uo[0]: ""
