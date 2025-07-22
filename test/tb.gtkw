@@ -1,39 +1,65 @@
 [*]
 [*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
-[*] Mon Nov 20 16:00:28 2023
+[*] Tue Jul 22 10:21:37 2025
 [*]
-[dumpfile] "/home/uri/p/tt-new-template-proto/test/tb.vcd"
-[dumpfile_mtime] "Mon Nov 20 15:58:34 2023"
-[dumpfile_size] 1110
-[savefile] "/home/uri/p/tt-new-template-proto/test/tb.gtkw"
+[dumpfile] "/home/matt/work/asic-workshop/shuttle-ttsky25a/ttsky25a-riscv-compo-encoder/test/tb.vcd"
+[dumpfile_mtime] "Tue Jul 22 10:21:18 2025"
+[dumpfile_size] 322753
+[savefile] "/home/matt/work/asic-workshop/shuttle-ttsky25a/ttsky25a-riscv-compo-encoder/test/tb.gtkw"
 [timestart] 0
-[size] 1376 600
+[size] 1926 1071
 [pos] -1 -1
-*-24.534533 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.734531 604600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb.
-[sst_width] 297
+[treeopen] tb.test_harness.
+[treeopen] tb.test_harness.user_peripheral.
+[sst_width] 343
 [signals_width] 230
 [sst_expanded] 1
-[sst_vpaned_height] 158
+[sst_vpaned_height] 325
 @28
-tb.user_project.ena
-@29
-tb.user_project.clk
+tb.clk
+tb.ena
+tb.rst_n
+@22
+tb.test_harness.user_peripheral.address[3:0]
+tb.test_harness.user_peripheral.data_in[7:0]
+tb.test_harness.user_peripheral.data_out[7:0]
 @28
-tb.user_project.rst_n
-@200
--Inputs
+tb.test_harness.user_peripheral.data_write
+@25
+tb.test_harness.user_peripheral.enc0[7:0]
+@c00022
+tb.test_harness.user_peripheral.ui_in[7:0]
+@28
+(0)tb.test_harness.user_peripheral.ui_in[7:0]
+(1)tb.test_harness.user_peripheral.ui_in[7:0]
+(2)tb.test_harness.user_peripheral.ui_in[7:0]
+(3)tb.test_harness.user_peripheral.ui_in[7:0]
+(4)tb.test_harness.user_peripheral.ui_in[7:0]
+(5)tb.test_harness.user_peripheral.ui_in[7:0]
+(6)tb.test_harness.user_peripheral.ui_in[7:0]
+(7)tb.test_harness.user_peripheral.ui_in[7:0]
+@1401200
+-group_end
 @22
-tb.user_project.ui_in[7:0]
-@200
--Bidirectional Pins
-@22
-tb.user_project.uio_in[7:0]
-tb.user_project.uio_oe[7:0]
-tb.user_project.uio_out[7:0]
-@200
--Output Pins
-@22
-tb.user_project.uo_out[7:0]
+tb.test_harness.user_peripheral.uo_out[7:0]
+@24
+tb.test_harness.user_peripheral.deb_strobe_gen.count[15:0]
+tb.test_harness.user_peripheral.debounce_cmp[7:0]
+@28
+tb.test_harness.user_peripheral.deb_strobe_gen.out
+tb.test_harness.user_peripheral.deb_strobe_gen.reset
+@800022
+tb.test_harness.user_peripheral.ui_in[7:0]
+@28
+(6)tb.test_harness.user_peripheral.ui_in[7:0]
+(7)tb.test_harness.user_peripheral.ui_in[7:0]
+@1001200
+-group_end
+@28
+tb.test_harness.user_peripheral.enc0_a_db
+tb.test_harness.user_peripheral.enc0_b_db
+tb.test_harness.user_peripheral.deb_strobe
 [pattern_trace] 1
 [pattern_trace] 0

@@ -1,21 +1,27 @@
 `default_nettype none
 `timescale 1ns/1ns
-// create a 1 clock wide pulse every (2^WIDTH)/2 clocks
+// create a 1 clock wide pulse every cmp << 6 clock cycles
 module strobe_gen #(
-    parameter WIDTH = 8
+    parameter WIDTH = 16
     ) (
     input wire clk,
-    output wire out
+    input wire reset,
+    input wire [7:0] cmp,
+    output reg out
     );
 
     reg [WIDTH-1:0] count;
-    assign out = count[WIDTH-1];
 
     always @(posedge clk) begin
-        if(count[WIDTH-1] == 1'b1) begin
+        if(reset) begin
             count <= 1'b0;
-        end else begin
+            out   <= 1'b0;
+        end else if (count >= (cmp << 6)) begin
+            out   <= 1'b1;
+	    count <= 1'b0;
+	end else begin
             count <= count + 1'b1;
+	    out   <= 1'b0;
         end
     end
 

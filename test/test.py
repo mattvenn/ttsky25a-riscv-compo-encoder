@@ -4,6 +4,7 @@
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
+from encoder import Encoder
 
 from tqv import TinyQV
 
@@ -14,6 +15,13 @@ async def test_project(dut):
     # Set the clock period to 100 ns (10 MHz)
     clock = Clock(dut.clk, 100, units="ns")
     cocotb.start_soon(clock.start())
+
+    # set to at least width of debounce shift register * debounce cycles
+    clocks_per_phase = 600 
+    encoder0 = Encoder(dut.clk, dut.ui_in[0], dut.ui_in[1], clocks_per_phase = clocks_per_phase, noise_cycles = clocks_per_phase / 4)
+    encoder1 = Encoder(dut.clk, dut.ui_in[2], dut.ui_in[3], clocks_per_phase = clocks_per_phase, noise_cycles = clocks_per_phase / 4)
+    encoder2 = Encoder(dut.clk, dut.ui_in[4], dut.ui_in[5], clocks_per_phase = clocks_per_phase, noise_cycles = clocks_per_phase / 4)
+    encoder3 = Encoder(dut.clk, dut.ui_in[6], dut.ui_in[7], clocks_per_phase = clocks_per_phase, noise_cycles = clocks_per_phase / 4)
 
     # Interact with your design's registers through this TinyQV class.
     # This will allow the same test to be run when your design is integrated
@@ -27,20 +35,39 @@ async def test_project(dut):
 
     dut._log.info("Test project behavior")
 
-    # Test register write and read back
-    await tqv.write_reg(0, 20)
+    # debounce strobe is 1 clock high every (debounce_cmp << 6) cycles.
+    # default is 128, which is 1 strobe every 8192 cycles, which at 64MHz results in a 7kHz sampling rate on the encoders
+    # takes too long for test, so set to 1, or once sample per 64 cycles
+    dut._log.info("update debounce frequency")
+    await tqv.write_reg(0, 1)
+
+    # check encoder is at 0
+    dut._log.info("Check all encoders are 0 at reset")
+    assert await tqv.read_reg(0) == 0
+    assert await tqv.read_reg(1) == 0
+    assert await tqv.read_reg(2) == 0
+    assert await tqv.read_reg(3) == 0
+
+    # twist the encoder knob
+    dut._log.info("checking encoder 0")
+    for i in range(clocks_per_phase * 2 * 20):
+        await encoder0.update(1)
     assert await tqv.read_reg(0) == 20
 
-    # Set an input value, in the example this will be added to the register value
-    dut.ui_in.value = 30
+    # twist the encoder knob
+    dut._log.info("checking encoder 1")
+    for i in range(clocks_per_phase * 2 * 30):
+        await encoder1.update(1)
+    assert await tqv.read_reg(1) == 30
 
-    # Wait for two clock cycles to see the output values, because ui_in is synchronized over two clocks,
-    # and a further clock is required for the output to propagate.
-    await ClockCycles(dut.clk, 3)
+    # twist the encoder knob
+    dut._log.info("checking encoder 2")
+    for i in range(clocks_per_phase * 2 * 40):
+        await encoder2.update(1)
+    assert await tqv.read_reg(2) == 40
 
-    # The following assertion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    assert dut.uo_out.value == 50
-
-    # Keep testing the module by changing the input values, waiting for
-    # one or more clock cycles, and asserting the expected output values.
+    # twist the encoder knob
+    dut._log.info("checking encoder 3")
+    for i in range(clocks_per_phase * 2 * 50):
+        await encoder3.update(1)
+    assert await tqv.read_reg(3) == 50
