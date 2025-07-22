@@ -24,10 +24,36 @@ Before submitting your design, please check:
 ## Submission process
 
 Please raise a pull request against https://github.com/TinyTapeout/ttsky25a-tinyQV adding your peripheral:
-- Add your verilog module to src/user_peripherals.  If you have multiple modules create a subdirectory.
-- Add your peripheral to the "Byte interface peripherals" section in src/peripherals.v, ask for help on Discord or in the PR if you're unsure how to do this.
-- Add your test file to test/user_peripherals.  You will need to add the peripheral number to the TinyQV constructor, this is the simple peripheral index plus 16.
-- Add your docs to docs/user_peripherals.
+
+### Add your verilog module to src/user_peripherals.
+
+* If you have multiple modules create a subdirectory.
+
+### Add your peripheral to the "Byte interface peripherals" section in src/peripherals.v
+
+* There are 2 places to add, depending on if it's a full or byte peripheral
+* Each peripheral needs its own index, and you'll have to update that in 3 different places (the example shows peripheral index of 0) :
+  * `.uo_out(uo_out_from_simple_peri[0]),`
+  * `.data_write((data_write_n != 2'b11) & peri_simple[0]),`
+  * `.data_out(data_from_simple_peri[0]),`
+
+Ask for help on Discord or in the PR if you're unsure how to do this.
+
+### Add your test file to test/user_peripherals.
+
+* Copy the test in to a subdirectory of test/user_peripherals
+* Update your testbench.py to add the peripheral number. to the TinyQV constructor, this is the simple peripheral index plus 16:
+
+    PERIPHERAL_NUM = 16 # simple peripheral index is 0, so set to 16
+    tqv = TinyQV(dut, PERIPHERAL_NUM)
+
+* In test/test_basic.mk, include your sources in PROJECT_SOURCES 
+* In test/test_basic.mk, if you are using your own Python modules, extend PYTHONPATH to include them
+* In test/Makefile, add the name of your test to the all recipe. If your test is called test.py and it's in a subdirectory called matt_encoder add this: `peri-matt_encoder.test.xml`
+
+### Add your docs to docs/user_peripherals.
+
+TBD
 
 ## Testing your design with TinyQV
 
