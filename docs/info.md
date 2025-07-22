@@ -9,15 +9,13 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## What it does
 
-Reads a rotary (incremental) encoder: https://en.wikipedia.org/wiki/Incremental_encoder
+Reads up to 4 rotary (incremental) encoder: https://en.wikipedia.org/wiki/Incremental_encoder
 
-The a and b signals are first debounced.
+The a and b signals are first debounced at a configurable frequency.
 
 The encoder counts from 0 to 255.
 
 ## Register map
-
-Document the registers that are used to interact with your peripheral
 
 | Address | Name  | Access | Description                                                         |
 |---------|-------|--------|---------------------------------------------------------------------|
@@ -29,10 +27,11 @@ Document the registers that are used to interact with your peripheral
 
 ## How to test
 
-Connect an incremental encoder to the input ports (see pin mapping).
+Connect up to 4 incremental encoders to the input port (see pin mapping).
 
 Use the test firmware to read the value of the encoder and print it out.
 
 ## External hardware
 
-Rotary incremental encoders.
+Rotary incremental encoders. Most encoder Pmod boards have pull-up / pull-down resistors. If you are
+using a bare encoder, you will need to add your own pull-up / pull-down resistors.
