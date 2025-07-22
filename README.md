@@ -51,6 +51,12 @@ Ask for help on Discord or in the PR if you're unsure how to do this.
 * In test/test_basic.mk, if you are using your own Python modules, extend PYTHONPATH to include them
 * In test/Makefile, add the name of your test to the all recipe. If your test is called test.py and it's in a subdirectory called matt_encoder add this: `peri-matt_encoder.test.xml`
 
+To run your test, make sure you have installed the `requirements.txt`, then:
+
+    make peri-matt_encoder.test.xml
+
+And the compressed waveform will be in `sim_build/rtl/tb.fst`
+
 ### Add your docs to docs/user_peripherals.
 
 TBD
