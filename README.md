@@ -25,9 +25,10 @@ Before submitting your design, please check:
 
 Please raise a pull request against https://github.com/TinyTapeout/ttsky25a-tinyQV adding your peripheral:
 
-### Add your verilog module to src/user_peripherals.
+### Add your verilog source to src/user_peripherals.
 
 * If you have multiple modules create a subdirectory.
+* Add each source file to the info.yaml source_files section
 
 ### Add your peripheral to the "Byte interface peripherals" section in src/peripherals.v
 
